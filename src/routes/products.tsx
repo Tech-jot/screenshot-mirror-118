@@ -1,0 +1,36 @@
+import { Link } from "@tanstack/react-router";
+import { ArrowRight, Check, Package, Ruler, ShieldCheck, SlidersHorizontal } from "lucide-react";
+
+import flakesImage from "@/assets/pvc-flakes.jpg";
+import facilityImage from "@/assets/pvc-facility.jpg";
+import heroImage from "@/assets/pvc-recycling-hero.jpg";
+import { Button } from "@/components/ui/button";
+import { Footer, Header, PageIntro, SectionHeading, FloatingWhatsApp } from "@/components/site";
+
+export const Route = createFileRoute("/products")({
+  head: () => ({ meta: [
+    { title: "Products | Recycled PVC Materials | PolyCycle" },
+    { name: "description", content: "Explore recycled PVC flakes, processed material categories, and a clear path to discuss buyer-specific requirements." },
+    { property: "og:title", content: "Products | Recycled PVC Materials | PolyCycle" },
+    { property: "og:description", content: "Explore recycled PVC material categories for industrial buyer conversations." },
+  ] }),
+  component: ProductsPage,
+});
+
+import { createFileRoute } from "@tanstack/react-router";
+
+function ProductsPage() {
+  const products = [
+    ["Recycled PVC Flakes", "Processed recycled PVC material produced through sorting, crushing, and processing operations.", flakesImage, "Flakes"],
+    ["Processed PVC Material", "A flexible product category for buyers reviewing processed recycled PVC material options.", facilityImage, "Processed material"],
+    ["Recycled PVC Feedstock", "A structured starting point for conversations around recycled PVC feedstock requirements.", heroImage, "Feedstock"],
+  ];
+  const specs = [[Package, "Packaging", "To be confirmed"], [Ruler, "Particle size", "Contact us"], [SlidersHorizontal, "Form", "Flakes / processed material"], [ShieldCheck, "Application", "Buyer specification review"]];
+  return <div><Header /><main><PageIntro eyebrow="Our products" title="Recycled PVC materials for industrial applications." description="Explore the current material categories and contact our team for specifications, bulk requirements, and customized supply discussions." current="Products" />
+    <section className="section-space"><div className="container-shell"><SectionHeading eyebrow="Material catalog" title="A clear starting point for your inquiry." description="These categories are structured for easy replacement with confirmed company product information, specifications, and applications." /><div className="mt-12 grid gap-6 md:grid-cols-3">{products.map(([name, text, image, form]) => <article key={name} className="overflow-hidden rounded-lg border border-border bg-card transition-all hover:-translate-y-1 hover:shadow-xl"><div className="image-frame aspect-[1.25] overflow-hidden"><img src={image} alt={name} className="h-full w-full object-cover transition-transform duration-700 hover:scale-105" width={1200} height={912} loading="lazy" /></div><div className="p-6"><p className="eyebrow text-primary">Material / {form}</p><h2 className="mt-4 font-display text-2xl font-bold tracking-[-0.03em]">{name}</h2><p className="mt-3 text-sm leading-6 text-muted-foreground">{text}</p><div className="mt-6 flex gap-3"><Button asChild size="sm"><Link to="/contact">Request quote</Link></Button><Button asChild size="sm" variant="ghost"><Link to="/contact">View details <ArrowRight /></Link></Button></div></div></article>)}</div></div></section>
+    <section className="section-space bg-secondary/45"><div className="container-shell grid items-center gap-12 lg:grid-cols-[0.95fr_1.05fr]"><div className="image-frame aspect-square overflow-hidden rounded-lg"><img src={flakesImage} alt="Recycled PVC flakes and processed granules in metal hoppers" className="h-full w-full object-cover" width={1200} height={912} loading="lazy" /></div><div><p className="eyebrow text-primary">Featured material</p><h2 className="display-title mt-4">Recycled PVC Flakes</h2><p className="body-copy mt-5">Processed recycled PVC material produced from PVC scrap through sorting, crushing, and processing operations. Share the details that matter to your application so the supply conversation can be reviewed accurately.</p><div className="mt-8 grid gap-4 sm:grid-cols-2">{specs.map(([Icon, label, value]) => <div key={label} className="border-t border-border pt-4"><Icon className="size-5 text-primary" /><p className="mt-3 text-xs font-semibold uppercase tracking-[0.1em] text-muted-foreground">{label}</p><p className="mt-1 text-sm font-bold text-foreground">{value}</p></div>)}</div><Button asChild className="mt-8"><Link to="/contact">Request product specification <ArrowRight /></Link></Button></div></div></section>
+    <section className="section-space"><div className="container-shell"><SectionHeading eyebrow="Buyer applications" title="Start with the end use in mind." description="Application categories below are placeholders for verified company information and can be refined through your inquiry." /><div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{["Industrial components", "Profiles & extrusion", "Flooring & sheets", "Custom application"].map((item, index) => <div key={item} className="border border-border p-6"><span className="font-display text-4xl font-bold text-primary/20">0{index + 1}</span><h3 className="mt-10 text-base font-bold">{item}</h3><p className="mt-3 text-sm leading-6 text-muted-foreground">To be confirmed with actual buyer and material specifications.</p></div>)}</div></div></section>
+    <section className="section-space bg-secondary/45"><div className="container-shell grid gap-12 lg:grid-cols-[1.1fr_0.9fr]"><div><SectionHeading eyebrow="Packaging & bulk supply" title="Prepared around the buyer’s requirements." description="Discuss bulk packaging, custom requirements, shipment preparation, and specification review with the team." /><div className="mt-8 space-y-4">{["Bulk packaging", "Custom packaging requirements", "Shipment preparation", "Buyer specification review"].map((item) => <div key={item} className="flex items-center gap-3 border-b border-border pb-4 text-sm font-semibold"><Check className="size-4 text-primary" />{item}</div>)}</div><Button asChild className="mt-8"><Link to="/contact">Discuss packaging requirements <ArrowRight /></Link></Button></div><div className="image-frame aspect-[1.12] overflow-hidden rounded-lg"><img src={heroImage} alt="PVC recycling line with bulk material handling" className="h-full w-full object-cover" width={1600} height={1104} loading="lazy" /></div></div></section>
+    <section className="section-space"><div className="container-shell"><div className="cta-panel"><div><p className="eyebrow text-accent">Specific requirement?</p><h2 className="display-title mt-4 text-primary-foreground">Need a specific recycled PVC material?</h2><p className="mt-4 max-w-xl text-base leading-7 text-primary-foreground/70">Share your required material, quantity, specifications, and destination country with our team.</p></div><Button asChild><Link to="/contact">Request a Quote <ArrowRight /></Link></Button></div></div></section>
+  </main><Footer /><FloatingWhatsApp /></div>;
+}

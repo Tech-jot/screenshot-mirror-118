@@ -1,0 +1,25 @@
+import { Link } from "@tanstack/react-router";
+import { ArrowRight, Check, ClipboardCheck, PackageCheck, Recycle, ScanSearch, Settings2, Truck } from "lucide-react";
+
+import heroImage from "@/assets/pvc-recycling-hero.jpg";
+import facilityImage from "@/assets/pvc-facility.jpg";
+import { Button } from "@/components/ui/button";
+import { Footer, Header, PageIntro, SectionHeading, FloatingWhatsApp } from "@/components/site";
+
+export const Route = createFileRoute("/process")({ head: () => ({ meta: [
+  { title: "Recycling Process | PVC Scrap to Material | PolyCycle" },
+  { name: "description", content: "Explore the visible processing path from PVC scrap receiving and sorting through quality review, packaging, and dispatch." },
+  { property: "og:title", content: "Recycling Process | PVC Scrap to Material | PolyCycle" },
+  { property: "og:description", content: "A clear look at the PVC recycling and material preparation workflow." },
+] }), component: ProcessPage });
+
+import { createFileRoute } from "@tanstack/react-router";
+
+function ProcessPage() {
+  const steps = [[Recycle, "PVC scrap", "Material is received and prepared for the first review."], [ScanSearch, "Sorting", "Material is organized before moving into processing."], [Settings2, "Crushing", "Scrap is reduced into a process-ready form."], [Settings2, "Processing", "Material moves through the relevant processing operation."], [ClipboardCheck, "Quality check", "The finished material is reviewed before packaging."], [PackageCheck, "Recycled material", "The material is prepared for the agreed buyer requirement."], [PackageCheck, "Packaging", "Packaging details are aligned with the order discussion."], [Truck, "Export", "Dispatch and shipment coordination are discussed with the buyer."]];
+  return <div><Header /><main><PageIntro eyebrow="Recycling process" title="From PVC scrap to recycled material." description="A clear, visible workflow helps buyers understand how material is handled and where specifications are confirmed." current="Process" />
+    <section className="section-space"><div className="container-shell grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]"><div><SectionHeading eyebrow="The workflow" title="Organized processing, step by step." description="The stages below reflect a general recycling workflow and are ready to be updated with the company’s confirmed process details." /><div className="mt-10 space-y-0">{steps.map(([Icon, title, text], index) => <div key={title as string} className="relative flex gap-5 pb-8 last:pb-0"><div className="relative z-10 grid size-11 shrink-0 place-items-center rounded-full border border-primary/20 bg-background text-primary"><Icon className="size-5" /></div><div className="border-b border-border pb-8 last:border-0"><div className="flex items-center gap-3"><span className="text-xs font-bold uppercase tracking-[0.14em] text-primary/50">0{index + 1}</span><h3 className="text-base font-bold">{title as string}</h3></div><p className="mt-2 max-w-md text-sm leading-6 text-muted-foreground">{text as string}</p></div>{index < steps.length - 1 ? <span className="absolute left-[1.35rem] top-11 h-[calc(100%-2.1rem)] w-px bg-border" /> : null}</div>)}</div></div><div className="image-frame aspect-[0.82] overflow-hidden rounded-lg"><img src={heroImage} alt="PVC flakes moving on a conveyor in a recycling facility" className="h-full w-full object-cover" width={1600} height={1104} loading="lazy" /></div></div></section>
+    <section className="section-space bg-primary text-primary-foreground"><div className="container-shell grid items-center gap-12 lg:grid-cols-[0.8fr_1.2fr]"><div><p className="eyebrow text-accent">Facility view</p><h2 className="display-title mt-4 text-primary-foreground">Where material movement becomes visible.</h2><p className="mt-5 text-base leading-7 text-primary-foreground/70">A facility story should make it easier for buyers to ask the right questions about material form, packaging, and dispatch.</p></div><div className="image-frame aspect-[1.5] overflow-hidden rounded-lg"><img src={facilityImage} alt="PVC recycling operators working around processing machinery" className="h-full w-full object-cover" width={1408} height={1008} loading="lazy" /></div></div></section>
+    <section className="section-space"><div className="container-shell"><SectionHeading eyebrow="What to confirm" title="Bring the right details into the conversation." description="Material, form, colour, particle size, packaging, minimum order quantity, application, and destination can all be reviewed with the buyer." /><div className="mt-10 flex flex-wrap gap-3">{["Material", "Form", "Colour", "Particle size", "Packaging", "MOQ", "Application", "Destination"].map((item) => <span key={item} className="inline-flex items-center gap-2 border border-border px-4 py-3 text-sm font-semibold"><Check className="size-4 text-primary" />{item}</span>)}</div><Button asChild className="mt-10"><Link to="/contact">Share your requirement <ArrowRight /></Link></Button></div></section>
+  </main><Footer /><FloatingWhatsApp /></div>;
+}
